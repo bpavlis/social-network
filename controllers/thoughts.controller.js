@@ -1,5 +1,5 @@
 const { Thoughts, User } = require('../models');
-const Model = Thoughts; 
+const Model = Thoughts;
 
 async function getAllItems() {
   try {
@@ -31,7 +31,7 @@ async function updateItemById(id, data) {
       id,
       data,
       { new: true }
-    );
+    )
   } catch (err) {
     throw new Error(err)
   }
@@ -45,10 +45,32 @@ async function deleteItemById(id) {
   }
 }
 
+async function addReaction(id, data) {
+  try {
+    return await Thoughts.findByIdAndUpdate(
+      id,
+      data,
+      { new: true}
+    )
+  } catch (err) {
+    throw new Error(err)
+  }
+}
+
+async function removeReaction(id) {
+  try {
+    return await Thoughts.findByIdAndDelete()
+  } catch (err) {
+    throw new Error(err)
+  }
+}
+
 module.exports = {
   getAllThoughts: getAllItems,
   getThoughtById: getItemById,
   createThought: createItem,
   updateThoughtById: updateItemById,
-  deleteThoughtById: deleteItemById
+  deleteThoughtById: deleteItemById,
+  addReaction,
+  removeReaction
 }
